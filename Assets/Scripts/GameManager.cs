@@ -2,6 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Level
+{
+    Fengchu,
+    Qingxin,
+    Tengyun,
+    Huiyang,
+    Qianyuan,
+    Wuxiang
+}
+
 public class GameManager : MonoBehaviour
 {   
     public static GameManager instance = null;
