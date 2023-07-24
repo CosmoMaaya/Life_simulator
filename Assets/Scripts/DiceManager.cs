@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+// using UnityEngine.UI;
+// using TMPro;
 
 public enum DiceResult {
     GreatSuccess,
@@ -13,14 +13,13 @@ public enum DiceResult {
 
 public class DiceManager : MonoBehaviour
 {   
-    public Button rollButton;
-    public Player player;
-    public TMP_Text diceText;
+    // public Button rollButton;
+    // public Player player;
+    // public TMP_Text diceText;
     public int diceNumber, diceRange;
     // Change our dice type according to the current level of our player
-    public void RollDiceMoving () {
-        Debug.Log("HELLO");
-        switch (player.myLevel)
+    public int RollDiceMoving (Level myLevel) {
+        switch (myLevel)
         {
             case Level.Fengchu:
                 diceNumber = 1;
@@ -54,8 +53,7 @@ public class DiceManager : MonoBehaviour
         for (int i = 0; i < diceNumber; i++) {
             result += UnityEngine.Random.Range(1, diceRange);
         }
-        diceText.text = result.ToString();
-        // return result;
+        return result;
     }
 
 
