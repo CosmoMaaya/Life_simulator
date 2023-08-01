@@ -51,7 +51,7 @@ public class DiceManager : MonoBehaviour
 
         int result = 0;
         for (int i = 0; i < diceNumber; i++) {
-            result += UnityEngine.Random.Range(1, diceRange);
+            result += Random.Range(1, diceRange + 1);
         }
         return result;
     }
