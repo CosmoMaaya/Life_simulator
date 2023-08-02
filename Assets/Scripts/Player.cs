@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
         // 2/6 = 50%, 5/6 = 90%, max 90%
         float probability = 80.0f * (expUsed / Globals.EXP_BOUND[myLevel] - 2.0f / 6.0f) + 50.0f;
 
-        float res = UnityEngine.Random.Range(1.0f, 100.0f);
+        float res = UnityEngine.Random.Range(0.0f, 100.0f);
 
         exp -= expUsed;
         // TODO: A mechanism to reflect the probability of success.

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GridUnit : MonoBehaviour
 {
+    
+    bool award = true;
     // Start is called before the first frame update
     void Start()
     {
