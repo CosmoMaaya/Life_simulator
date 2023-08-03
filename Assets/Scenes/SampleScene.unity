@@ -636,7 +636,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid_prefab: {fileID: 7155557204767556869, guid: 9a060ed1b4388ff4aab57322481c9406, type: 3}
-  grid_parent: {fileID: 0}
+  GameBoard: {fileID: 1999376204}
   dice: {fileID: 1529461982}
   player: {fileID: 1678387288}
   rollButton: {fileID: 1938509849}
@@ -802,7 +802,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1999376205}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: GameBoard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
