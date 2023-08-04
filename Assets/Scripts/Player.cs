@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -73,6 +74,14 @@ public class Player : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public string GetOneRandomPropertyName() {
+        var fieldNames = typeof(PlayerProperties).GetFields()
+                            .Select(field => field.Name)
+                            .ToList();
+        int rtn_index = UnityEngine.Random.Range(0, fieldNames.Count);
+        return fieldNames[rtn_index];
     }
 
     public void Move(int step) {
