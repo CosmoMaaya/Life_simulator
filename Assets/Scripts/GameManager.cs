@@ -52,14 +52,22 @@ public static class Globals {
         {GridEffect.PENALTY_dice, 0.7f},
         {GridEffect.PENALTY_coin, 0.9f}
     };
-}
 
-public class property {
-    int HP, physique, speed, spirit, qi;
-}
+    public static List<GridEffect> REWARD_ORDER = new List<GridEffect> () {
+        GridEffect.REWARD_exp,
+        GridEffect.REWARD_skill,
+        GridEffect.REWARD_property,
+        GridEffect.REWARD_coin,
+        GridEffect.REWARD_wuxing,
+        GridEffect.REWARD_dice,
+    };
 
-public class skills {
-
+    public static List<GridEffect> PENALTY_ORDER = new List<GridEffect> () {
+        GridEffect.PENALTY_exp,
+        GridEffect.PENALTY_wuxing,
+        GridEffect.PENALTY_dice,
+        GridEffect.PENALTY_coin,
+    };
 }
 
 public class GameManager : MonoBehaviour
@@ -104,6 +112,8 @@ public class GameManager : MonoBehaviour
         int movement = dice.RollDiceMoving(player.myLevel);
         player.Move(movement);
 
+        player.ChangeExp((int) (Globals.EXP_BOUND[player.myLevel] / 100.0f * (10 - (int)player.myLevel)));
+
         diceText.text = movement.ToString();
         Debug.LogFormat("Player has moved forward by {0}", movement);
 
@@ -115,10 +125,11 @@ public class GameManager : MonoBehaviour
         switch (effect) {
             case GridEffect.REWARD_exp:
             {
+                player.ChangeExp(10);
                 break;
             }
             case GridEffect.REWARD_skill:
-            {
+            {8
                 break;
             }
             case GridEffect.REWARD_property:

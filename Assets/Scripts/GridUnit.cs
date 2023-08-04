@@ -10,20 +10,20 @@ public class GridUnit : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        award = (Random.value <= 0.2);
+        award = (Random.value <= 0.7);
         myEffect = generateEffect();
     }
 
     GridEffect generateEffect() {
-        var effect_values = System.Enum.GetValues(typeof(GridEffect)).Cast<int>();
         //.Cast<GridEffect>()
+        var effect_iterate = Globals.REWARD_ORDER;
+        if (!award) {
+            effect_iterate = Globals.PENALTY_ORDER;
+        }
         while (true) {
-            foreach (var effect in effect_values)
+            foreach (var effect in effect_iterate)
             {
-                if (award && effect < (int) GridEffect.SPLIT && Random.value <= Globals.EFFECT_PROB[(GridEffect) effect]) {
-                    return (GridEffect) effect;
-                }
-                if (!award && effect > (int) GridEffect.SPLIT && Random.value <= Globals.EFFECT_PROB[(GridEffect) effect]) {
+                if (Random.value <= Globals.EFFECT_PROB[effect]) {
                     return (GridEffect) effect;
                 }
             }

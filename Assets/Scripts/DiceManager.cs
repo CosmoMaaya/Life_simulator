@@ -55,6 +55,10 @@ public class DiceManager : MonoBehaviour
         }
         return result;
     }
+    
+    public DiceResult RollDiceCommon() {
+        return DiceResult.GreatSuccess;
+    }
 
 
     // Start is called before the first frame update
