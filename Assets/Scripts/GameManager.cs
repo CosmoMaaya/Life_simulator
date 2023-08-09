@@ -106,6 +106,7 @@ public class GameManager : MonoBehaviour
             }
             case GridEffect.REWARD_wuxing: 
             {
+                player.ChangeWuxingBy(10);
                 break;
             }
             case GridEffect.REWARD_dice:
@@ -118,10 +119,12 @@ public class GameManager : MonoBehaviour
 			}
             case GridEffect.PENALTY_exp:
 			{
+                player.ChangeExpBy(-10);
 				break;
 			}
             case GridEffect.PENALTY_wuxing:
 			{
+                player.ChangeWuxingBy(-10);
 				break;
 			}
             case GridEffect.PENALTY_dice:
@@ -130,6 +133,7 @@ public class GameManager : MonoBehaviour
 			}
             case GridEffect.PENALTY_coin:
 			{
+                player.ChangeMoneyBy(-10);
 				break;
 			}
             default:
