@@ -24,7 +24,7 @@ public class Practicable
 
     public void ChangeLevelBy(int amount) {
         Level += amount;
-        Level = Math.Max(Math.Min(LevelLimit, Level), 0);
+        Level = Globals.Clamp(Level, 0, LevelLimit);
     }
 }
 
@@ -111,9 +111,19 @@ public class Player : MonoBehaviour
 
     public void ChangeExpBy(int amount) {
         exp += amount;
-        exp = Math.Max(exp, 3 * Globals.LIFE_BOUND[myLevel]);
+        exp = Globals.Clamp(exp, 0, 3 * Globals.LIFE_BOUND[myLevel]);
     }
 
+    public void ChangeMoneyBy(int amount) {
+        money += amount;
+        money = Math.Min(0, money);
+    }
+
+    public void ChangeWuxingBy(int amount) {
+        amount = Globals.Clamp(amount, -100, 100);
+        wuxing += amount;
+        wuxing = Globals.Clamp(wuxing, 0, 100);
+    }
 
     public bool LevelUp(int expUsed) {
         if (exp < Globals.EXP_BOUND[myLevel] / 3.0f) {
