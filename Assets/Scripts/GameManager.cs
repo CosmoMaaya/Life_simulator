@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
         int movement = dice.RollDiceMoving(player.myLevel);
         player.Move(movement);
 
-        player.ChangeExp((int) (Globals.EXP_BOUND[player.myLevel] / 100.0f * (10 - (int)player.myLevel)));
+        player.ChangeExpBy((int) (Globals.EXP_BOUND[player.myLevel] / 100.0f * (10 - (int)player.myLevel)));
 
         diceText.text = movement.ToString();
         Debug.LogFormat("Player has moved forward by {0}", movement);
@@ -125,15 +125,19 @@ public class GameManager : MonoBehaviour
         switch (effect) {
             case GridEffect.REWARD_exp:
             {
-                player.ChangeExp(10);
+                player.ChangeExpBy(10);
                 break;
             }
             case GridEffect.REWARD_skill:
             {
+                var skill = player.GetRandomSkill();
+                skill.ChangeLevelBy(1);
                 break;
             }
             case GridEffect.REWARD_property:
             {
+                var property = player.GetRandomProperty();
+                property.ChangeLevelBy(1);
                 break;
             }
             case GridEffect.REWARD_coin:
@@ -142,7 +146,6 @@ public class GameManager : MonoBehaviour
             }
             case GridEffect.REWARD_wuxing: 
             {
-                
                 break;
             }
             case GridEffect.REWARD_dice:

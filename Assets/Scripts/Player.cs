@@ -22,7 +22,7 @@ public class Practicable
         }
     }
 
-    public void ChangeLevel(int amount) {
+    public void ChangeLevelBy(int amount) {
         Level += amount;
         Level = Math.Max(Math.Min(LevelLimit, Level), 0);
     }
@@ -93,13 +93,15 @@ public class Player : MonoBehaviour
         
     }
 
-    public GeneralProperty GetARandomProperty() {
-        System.Random random = new System.Random();
-        int index = random.Next(PropertySet.Count);
-
-        //string key = dictionary.Keys.ElementAt(index);
-        //int value = dictionary.Values.ElementAt(index);
+    public GeneralProperty GetRandomProperty() {
+        int index = UnityEngine.Random.Range(0, PropertySet.Count);
         KeyValuePair<PropertyName, GeneralProperty> pair = PropertySet.ElementAt(index);
+        return pair.Value;
+    }
+
+    public GeneralSkill GetRandomSkill() {
+        int index = UnityEngine.Random.Range(0, SkillSet.Count);
+        KeyValuePair<SkillName, GeneralSkill> pair = SkillSet.ElementAt(index);
         return pair.Value;
     }
     public void Move(int step) {
@@ -107,10 +109,11 @@ public class Player : MonoBehaviour
         position = Math.Min(position, Globals.LIFE_BOUND[myLevel]);
     }
 
-    public void ChangeExp(int amount) {
+    public void ChangeExpBy(int amount) {
         exp += amount;
         exp = Math.Max(exp, 3 * Globals.LIFE_BOUND[myLevel]);
     }
+
 
     public bool LevelUp(int expUsed) {
         if (exp < Globals.EXP_BOUND[myLevel] / 3.0f) {
