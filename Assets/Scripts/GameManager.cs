@@ -134,8 +134,6 @@ public class GameManager : MonoBehaviour
             }
             case GridEffect.REWARD_property:
             {
-                var property_name = player.GetOneRandomPropertyName();
-                (GeneralProperty) (typeof(PlayerProperties).GetField(property_name).GetValue(player.propertySet)).ChangeLevel(1);
                 break;
             }
             case GridEffect.REWARD_coin:

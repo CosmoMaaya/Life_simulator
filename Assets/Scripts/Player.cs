@@ -37,10 +37,13 @@ public class GeneralProperty : Practicable{
     }
 }
 
-public class PlayerProperties {
-    GeneralProperty Health, Stamina, Agility, Sprit, Intellect;
+public enum PropertyName {
+    HEALTH,
+    STAMINA,
+    AGILITY,
+    SPIRIT,
+    INTELLECT
 }
-
 public class GeneralSkill : Practicable{
     public GeneralSkill() {
         Level = 10;
@@ -51,10 +54,16 @@ public class GeneralSkill : Practicable{
     }
 }
 
-public class PlayerSkills{
-    GeneralSkill Duanti, Fashu, Zhenfa, Huanshu, Dunfa, Danyao, Fuzhi, Lianqi, Tuiyan;
+public enum SkillName {
+    DUANTI,
+    FASHU,
+    ZHENFA,
+    HUANSHU,
+    DANYAO,
+    FUZHI,
+    LIANQI,
+    TUIYAN
 }
-
 
 public class Player : MonoBehaviour
 {
@@ -62,26 +71,26 @@ public class Player : MonoBehaviour
     public int position = 0;
     public int exp = 0, money = 0, wuxing = 100;
 
-    public PlayerProperties propertySet = new PlayerProperties();
-    public PlayerSkills skillSet = new PlayerSkills();
+    public Dictionary<PropertyName, GeneralProperty> PropertySet = new Dictionary<PropertyName, GeneralProperty>();
+    public Dictionary<SkillName, GeneralSkill> SkillSet = new Dictionary<SkillName, GeneralSkill>();
     // Start is called before the first frame update
     void Start()
     {
-        
+        var property_values = Enum.GetValues(typeof(PropertyName)).Cast<PropertyName>();
+        foreach (var value in property_values) {
+            PropertySet.Add(value, new GeneralProperty());
+        }
+
+        var skill_values = Enum.GetValues(typeof(SkillName)).Cast<SkillName>();
+        foreach (var value in skill_values) {
+            SkillSet.Add(value, new GeneralSkill());
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-    public string GetOneRandomPropertyName() {
-        var fieldNames = typeof(PlayerProperties).GetFields()
-                            .Select(field => field.Name)
-                            .ToList();
-        int rtn_index = UnityEngine.Random.Range(0, fieldNames.Count);
-        return fieldNames[rtn_index];
     }
 
     public void Move(int step) {
