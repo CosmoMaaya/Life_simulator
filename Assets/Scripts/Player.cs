@@ -135,6 +135,11 @@ public class Player : MonoBehaviour
         probability /= 100;
         exp -= expUsed;
 
-        return UnityEngine.Random.value <= probability;
+        bool succ = UnityEngine.Random.value <= probability;
+
+        if (!succ) {
+            exp = 0;
+        }
+        return succ;
     }
 }

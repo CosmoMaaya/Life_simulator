@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
         int movement = dice.RollDiceMoving(player.myLevel);
         player.Move(movement);
 
-        player.ChangeExpBy((int) (Globals.EXP_BOUND[player.myLevel] / 100.0f * (10 - (int)player.myLevel)));
+        player.ChangeExpBy((int) (Globals.EXP_BOUND[player.myLevel] / 100.0f * (10 - (int)player.myLevel) * (player.wuxing / 100.0f)));
 
         diceText.text = movement.ToString();
         Debug.LogFormat("Player has moved forward by {0}", movement);
