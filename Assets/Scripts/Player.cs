@@ -93,6 +93,15 @@ public class Player : MonoBehaviour
         
     }
 
+    public GeneralProperty GetARandomProperty() {
+        System.Random random = new System.Random();
+        int index = random.Next(PropertySet.Count);
+
+        //string key = dictionary.Keys.ElementAt(index);
+        //int value = dictionary.Values.ElementAt(index);
+        KeyValuePair<PropertyName, GeneralProperty> pair = PropertySet.ElementAt(index);
+        return pair.Value;
+    }
     public void Move(int step) {
         position += step;
         position = Math.Min(position, Globals.LIFE_BOUND[myLevel]);
