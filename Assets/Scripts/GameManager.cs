@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
     
     List<GameObject> grids_holder = new List<GameObject>();
 
+    public GameObject currentGrid;
+
     public DiceManager dice;
     public Player player;
 
@@ -64,12 +66,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public void MovePlayer() {
         int movement = dice.RollDiceMoving(player.myLevel);
         player.Move(movement);
+        currentGrid.GetComponent<GridUnit>().Copy(grids_holder[player.position].GetComponent<GridUnit>());
 
         player.ChangeExpBy((int) (Globals.EXP_BOUND[player.myLevel] / 100.0f * (10 - (int)player.myLevel) * (player.wuxing / 100.0f)));
 
