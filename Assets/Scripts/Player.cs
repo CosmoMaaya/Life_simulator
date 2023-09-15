@@ -12,6 +12,8 @@ public class Practicable
     public int PracticeLevelLimit {get; protected set;}
     public int PracticeProg{get; set;}
     public int PracticeProgLimit{get; set;}
+
+    public PracticableElementUI uiElement;
     
     public void Practice(int prog) {
         if (Level >= LevelLimit) {return;}
@@ -20,20 +22,21 @@ public class Practicable
             PracticeProg -= PracticeProgLimit;
             Level = Math.Min(PracticeLevelLimit, Level+1);
         }
+        Notify();
     }
 
     public void ChangeLevelBy(int amount) {
         Level += amount;
         Level = Globals.Clamp(Level, 0, LevelLimit);
+        Notify();
     }
-}
 
-public class GeneralProperty : Practicable{
-    public GeneralProperty() {
-        Level = 10;
-        LevelLimit = PracticeLevelLimit = 90;
-        PracticeProg = 0;
-        PracticeProgLimit = 100;
+    public void Subscribe(PracticableElementUI uiElement) {
+        this.uiElement=uiElement;
+        Notify();
+    }
+    public void Notify() {
+        uiElement.UpdateUI(Level, PracticeProg, PracticeProgLimit);
     }
 }
 
@@ -44,11 +47,13 @@ public enum PropertyName {
     SPIRIT,
     INTELLECT
 }
-public class GeneralSkill : Practicable{
-    public GeneralSkill() {
+
+public class GeneralProperty : Practicable{
+    public PropertyName name;
+    public GeneralProperty(PropertyName name_) {
+        name=name_;
         Level = 10;
-        LevelLimit = 90;
-        PracticeLevelLimit = 70;
+        LevelLimit = PracticeLevelLimit = 90;
         PracticeProg = 0;
         PracticeProgLimit = 100;
     }
@@ -65,25 +70,49 @@ public enum SkillName {
     TUIYAN
 }
 
+public class GeneralSkill : Practicable{
+    public SkillName name;
+    public GeneralSkill(SkillName name_) {
+        name=name_;
+        Level = 10;
+        LevelLimit = 90;
+        PracticeLevelLimit = 70;
+        PracticeProg = 0;
+        PracticeProgLimit = 100;
+    }
+}
+
 public class Player : MonoBehaviour
 {
+    public static Player Instance {get; private set;}
     public Level myLevel = Level.Fengchu;
     public int position = 0;
     public int exp = 0, money = 0, wuxing = 100;
 
     public Dictionary<PropertyName, GeneralProperty> PropertySet = new Dictionary<PropertyName, GeneralProperty>();
     public Dictionary<SkillName, GeneralSkill> SkillSet = new Dictionary<SkillName, GeneralSkill>();
+    
+    void Awake()
+    {
+        if (Instance != null && Instance != this) {
+            Destroy(this);
+            return;
+        }
+        Instance = this;
+    }
+
+
     // Start is called before the first frame update
     void Start()
     {
         var property_values = Enum.GetValues(typeof(PropertyName)).Cast<PropertyName>();
         foreach (var value in property_values) {
-            PropertySet.Add(value, new GeneralProperty());
+            PropertySet.Add(value, new GeneralProperty(value));
         }
 
         var skill_values = Enum.GetValues(typeof(SkillName)).Cast<SkillName>();
         foreach (var value in skill_values) {
-            SkillSet.Add(value, new GeneralSkill());
+            SkillSet.Add(value, new GeneralSkill(value));
         }
     }
 
