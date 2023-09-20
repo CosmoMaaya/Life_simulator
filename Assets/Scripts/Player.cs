@@ -45,7 +45,8 @@ public enum PropertyName {
     STAMINA,
     AGILITY,
     SPIRIT,
-    INTELLECT
+    INTELLECT,
+    Count
 }
 
 public class GeneralProperty : Practicable{
@@ -67,7 +68,8 @@ public enum SkillName {
     DANYAO,
     FUZHI,
     LIANQI,
-    TUIYAN
+    TUIYAN,
+    Count
 }
 
 public class GeneralSkill : Practicable{
@@ -107,12 +109,16 @@ public class Player : MonoBehaviour
     {
         var property_values = Enum.GetValues(typeof(PropertyName)).Cast<PropertyName>();
         foreach (var value in property_values) {
-            PropertySet.Add(value, new GeneralProperty(value));
+            if (value != PropertyName.Count) {
+                PropertySet.Add(value, new GeneralProperty(value));
+            }
         }
 
         var skill_values = Enum.GetValues(typeof(SkillName)).Cast<SkillName>();
         foreach (var value in skill_values) {
-            SkillSet.Add(value, new GeneralSkill(value));
+            if (value != SkillName.Count) {
+                SkillSet.Add(value, new GeneralSkill(value));
+            }
         }
     }
 
